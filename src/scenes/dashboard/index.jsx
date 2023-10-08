@@ -11,6 +11,8 @@ import dsa from "../../assets/dsa.png";
 import js from "../../assets/js.png";
 import cloud from "../../assets/cloud.png";
 import { tokens } from "../../theme";
+import { deepPurple } from "@mui/material/colors";
+
 
 const lectures = [
     {
