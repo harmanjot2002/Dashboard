@@ -1,0 +1,9 @@
+.hover-effect{
+    box-shadow:3px 3px 2px rgb(201, 227, 234);
+}
+.hover-effect:hover{
+    transform:scale(1.02);
+    transition-duration:0.4s ;
+    cursor:pointer;
+    box-shadow:3px 3px 2px rgb(201, 227, 234);
+}

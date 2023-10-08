@@ -1,10 +1,9 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, IconButton, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataTeam } from "../../data/mockData";
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
+import Delete from "@mui/icons-material/Delete";
+import ModeIcon from '@mui/icons-material/Mode';
 import Header from "../../components/Header";
 
 const Team = () => {
@@ -36,32 +35,26 @@ const Team = () => {
       flex: 1,
     },
     {
-      field: "accessLevel",
-      headerName: "Access Level",
+      
+      
       flex: 1,
-      renderCell: ({ row: { access } }) => {
+      renderCell: () => {
         return (
           <Box
             width="60%"
             m="0 auto"
             p="5px"
             display="flex"
-            justifyContent="center"
-            backgroundColor={
-              access === "admin"
-                ? colors.greenAccent[600]
-                : access === "manager"
-                ? colors.greenAccent[700]
-                : colors.greenAccent[700]
-            }
+            justifyContent="space-around"
             borderRadius="4px"
           >
-            {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
-            {access === "manager" && <SecurityOutlinedIcon />}
-            {access === "user" && <LockOpenOutlinedIcon />}
-            <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
-              {access}
-            </Typography>
+              <IconButton>
+                <ModeIcon />
+              </IconButton>
+             <IconButton>
+                <Delete />
+              </IconButton>
+              
           </Box>
         );
       },
@@ -100,7 +93,7 @@ const Team = () => {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={mockDataTeam} columns={columns}  initialState={{
+        <DataGrid rows={mockDataTeam} columns={columns}  initialState={{
     pagination: { paginationModel: { pageSize: 5 } },
   }}
   pageSizeOptions={[5, 10, 25]}/>
