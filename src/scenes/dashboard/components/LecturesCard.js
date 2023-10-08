@@ -11,16 +11,16 @@ const LecturesCard = ({ img,id,title,trainer,group }) => {
         <div className="w-80 flex flex-col p-5 mt-1 gap-5 justify-center items-center bg-slate-400 min-h-28 rounded-lg hover-effect">
             <img className="w-20" src={img} alt="dev" />
             {/* <div className="flex-col justify-center hover-effect"> */}
-                <Typography variant="h5" color={colors.redAccent[800]}>
+                <Typography variant="h5" color={colors.blueAccent[900]}>
                     {`Lecture: ${id}`}
                 </Typography>
-                <Typography variant="h5" color={colors.redAccent[800]}>
+                <Typography variant="h5" color={colors.blueAccent[900]}>
                     {`Subject: ${title}`}
                 </Typography> 
-                <Typography variant="h5" color={colors.redAccent[800]}>
+                <Typography variant="h5" color={colors.blueAccent[900]}>
                     {`Trainer: ${trainer}`}
                 </Typography> 
-                <Typography variant="h5" color={colors.redAccent[800]}>
+                <Typography variant="h5" color={colors.blueAccent[900]}>
                     {`Group: ${group}`}
                 </Typography> 
             {/* </div> */}

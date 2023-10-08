@@ -1,4 +1,4 @@
-import { Box,IconButton,} from "@mui/material";
+import { Box, useTheme,Avatar} from "@mui/material";
 import Header from "../../components/Header";
 import CourseCard from "./components/CourseCard";
 import LecturesCard from "./components/LecturesCard";
@@ -10,6 +10,9 @@ import app from "../../assets/app.png";
 import dsa from "../../assets/dsa.png";
 import js from "../../assets/js.png";
 import cloud from "../../assets/cloud.png";
+import { tokens } from "../../theme";
+import { deepPurple } from "@mui/material/colors";
+
 
 const lectures = [
     {
@@ -65,7 +68,7 @@ const teachers = [
     },
     {
         img: dsa,
-        title: "DSA",
+        title: "Data Strutures",
         id: 3,
         trainer:"Amit Kumar",
         group:"G-17"
@@ -81,7 +84,7 @@ const teachers = [
         img: cloud,
         title: "Cloud Computing",
         id: 5,
-        trainer:"Anupinder Singh",
+        trainer:"Anup Kumar",
         group:"G-03"
     },
 ];
@@ -114,6 +117,8 @@ const courses = [
 ];
 
 const Dashboard = () => {
+    const theme = useTheme();
+    const colors = tokens(theme.palette.mode);
     return (
         <Box m="20px" className="flex flex-col gap-5">
             <Box
@@ -131,7 +136,7 @@ const Dashboard = () => {
                 <div className="flex gap-5 justify-center flex-wrap">
                     {teachers.map((teacher) => (
                         <TeacherCard
-                            icon={<Box display="flex" gap="1.2rem" justifyContent="space-around"><Delete/><ModeIcon/></Box>}
+                            icon={<Box display="flex" gap="1.2rem" justifyContent="space-around"><Delete style={{ color: colors.redAccent[600] }}/><ModeIcon style={{ color: colors.greenAccent[700] }}/></Box>}
                             img={teacher.img}
                             title={teacher.title}
                             trainer={teacher.trainer}

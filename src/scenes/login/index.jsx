@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Header from "../../components/Header";
-import { Divider, TextField } from "@mui/material";
+import { Divider, TextField, Button} from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
@@ -86,7 +86,11 @@ const Login = () => {
                             formik.touched.password && formik.errors.password
                         }
                     />
-                    <button type="submit">Login</button>
+                    <div display="flex" mt="20px" className="flex justify-center items-center">
+                        <Button type="submit" color="secondary" variant="contained">
+                            Login
+                        </Button>
+                    </div>
                 </form>
             </div>
         </div>
