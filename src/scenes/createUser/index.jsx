@@ -54,7 +54,7 @@ const CreateUser = () => {
           className="w-full flex flex-col gap-5"
         >
           <Grid container spacing={2}>
-            <Grid item xs={6}>
+            <Grid item xs={8} md={6}>
               <div className="mb-5">
                 <TextField
                   fullWidth
@@ -119,7 +119,7 @@ const CreateUser = () => {
                 />
               </div>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={8} md={6}>
               <div className="mb-5">
                 <TextField
                   fullWidth
