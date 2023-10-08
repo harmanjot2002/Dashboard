@@ -10,6 +10,7 @@ import Form from "./scenes/form";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Login from "./scenes/login";
+import TeacherProfile from "./scenes/teacher";
 
 function App() {
     const [theme, colorMode] = useMode();
@@ -35,6 +36,7 @@ function App() {
                                 <Route path="/team" element={<Team />} />
                                 {/* <Route path="/contacts" element={<Contacts />} /> */}
                                 <Route path="/form" element={<Form />} />
+                                <Route path="/teacher/:id" element={<TeacherProfile />} />
                             </Routes>
                         </main>
                     </div>
