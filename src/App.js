@@ -28,7 +28,7 @@ function App() {
                 ) : (
                     <div className="app">
                         <Sidebar isSidebar={isSidebar} />
-                        <main className="content">
+                        <main className="content max-w-screen overflow-scroll scrollHidden">
                             <Topbar />
                             <Routes>
                                 <Route path="/" element={<Dashboard />} />
