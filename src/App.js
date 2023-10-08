@@ -10,6 +10,7 @@ import Form from "./scenes/form";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Login from "./scenes/login";
+import CreateUser from './scenes/createUser'
 
 function App() {
     const [theme, colorMode] = useMode();
@@ -33,8 +34,8 @@ function App() {
                             <Routes>
                                 <Route path="/" element={<Dashboard />} />
                                 <Route path="/team" element={<Team />} />
-                                {/* <Route path="/contacts" element={<Contacts />} /> */}
                                 <Route path="/form" element={<Form />} />
+                                <Route path="/createUser" element={<CreateUser />} />
                             </Routes>
                         </main>
                     </div>
