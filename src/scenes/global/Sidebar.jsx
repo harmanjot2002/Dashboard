@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -33,6 +33,26 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [selected, setSelected] = useState("Dashboard");
+  const {pathname} = useLocation();
+
+  useEffect(()=>{
+    switch(pathname){
+      case "/":
+        setSelected("Dashboard");
+        break;
+      case "/team":
+        setSelected("Manage Team");
+        break;
+      case "/form":
+        setSelected("Create User");
+        break;
+      case "/lectures":
+        setSelected("Lectures Information");
+        break;
+      default:
+        setSelected("Dashboard");
+    }
+  },[pathname])
 
   return (
     <Box
@@ -128,7 +148,7 @@ const Sidebar = () => {
             />
             <Item
               title="Lectures Information"
-              to="/contacts"
+              to="/lectures"
               icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

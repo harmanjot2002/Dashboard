@@ -12,6 +12,7 @@ import { ColorModeContext, useMode } from "./theme";
 import Login from "./scenes/login";
 import TeacherProfile from "./scenes/teacher";
 import CreateUser from './scenes/createUser'
+import Lectures from "./scenes/lectures";
 
 function App() {
     const [theme, colorMode] = useMode();
@@ -36,6 +37,7 @@ function App() {
                                 <Route path="/" element={<Dashboard />} />
                                 <Route path="/team" element={<Team />} />
                                 <Route path="/form" element={<Form />} />
+                                <Route path="/lectures" element={<Lectures />} />
                                 <Route path="/teacher/:id" element={<TeacherProfile />} />
                                 <Route path="/createUser" element={<CreateUser />} />
                             </Routes>

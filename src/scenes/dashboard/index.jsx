@@ -1,10 +1,10 @@
-import { Box, useTheme,Avatar} from "@mui/material";
+import { Box, useTheme, Avatar, Button } from "@mui/material";
 import Header from "../../components/Header";
 import CourseCard from "./components/CourseCard";
 import LecturesCard from "./components/LecturesCard";
 import TeacherCard from "./components/TeacherCard";
 import Delete from "@mui/icons-material/Delete";
-import ModeIcon from '@mui/icons-material/Mode';
+import ModeIcon from "@mui/icons-material/Mode";
 import web from "../../assets/web.png";
 import app from "../../assets/app.png";
 import dsa from "../../assets/dsa.png";
@@ -12,43 +12,43 @@ import js from "../../assets/js.png";
 import cloud from "../../assets/cloud.png";
 import { tokens } from "../../theme";
 import { deepPurple } from "@mui/material/colors";
-
+import { Link } from "react-router-dom";
 
 const lectures = [
     {
         img: web,
         title: "Web Development",
         id: 1,
-        trainer:"Raj Shankar",
-        group:"G-12"
+        trainer: "Raj Shankar",
+        group: "G-12",
     },
     {
         img: app,
         title: "App Development",
         id: 2,
-        trainer:"John Mark",
-        group:"G-13"
+        trainer: "John Mark",
+        group: "G-13",
     },
     {
         img: dsa,
         title: "DSA",
         id: 3,
-        trainer:"Amit Kumar",
-        group:"G-17"
+        trainer: "Amit Kumar",
+        group: "G-17",
     },
     {
         img: js,
         title: "Javascript",
         id: 4,
-        trainer:"Reshab Kumar",
-        group:"G-23"
+        trainer: "Reshab Kumar",
+        group: "G-23",
     },
     {
         img: cloud,
         title: "Cloud Computing",
         id: 5,
-        trainer:"Anupinder Singh",
-        group:"G-03"
+        trainer: "Anupinder Singh",
+        group: "G-03",
     },
 ];
 const teachers = [
@@ -56,36 +56,36 @@ const teachers = [
         img: web,
         title: "Web Development",
         id: 1,
-        trainer:"Raj Shankar",
-        group:"G-12"
+        trainer: "Raj Shankar",
+        group: "G-12",
     },
     {
         img: app,
         title: "App Development",
         id: 2,
-        trainer:"John Mark",
-        group:"G-13"
+        trainer: "John Mark",
+        group: "G-13",
     },
     {
         img: dsa,
         title: "Data Strutures",
         id: 3,
-        trainer:"Amit Kumar",
-        group:"G-17"
+        trainer: "Amit Kumar",
+        group: "G-17",
     },
     {
         img: js,
         title: "Javascript",
         id: 4,
-        trainer:"Reshab Kumar",
-        group:"G-23"
+        trainer: "Reshab Kumar",
+        group: "G-23",
     },
     {
         img: cloud,
         title: "Cloud Computing",
         id: 5,
-        trainer:"Anup Kumar",
-        group:"G-03"
+        trainer: "Anup Kumar",
+        group: "G-03",
     },
 ];
 const courses = [
@@ -130,17 +130,41 @@ const Dashboard = () => {
                     title="DASHBOARD"
                     subtitle="Welcome to your dashboard"
                 />
+                <Button type="submit" color="secondary" variant="contained">
+                    <Link to={"/createuser"}>Add New Teacher</Link>
+                </Button>
             </Box>
             <Box display="flex" flexDirection={"column"}>
-                <Header title="Teachers" />
+                <div className="flex justify-between items-center">
+                    <Header title="Teachers" />
+                    <Button type="submit" color="secondary" variant="contained">
+                        <Link to={"/team"}>View All</Link>
+                    </Button>
+                </div>
                 <div className="flex gap-5 justify-center flex-wrap">
                     {teachers.map((teacher) => (
                         <TeacherCard
-                            icon={<Box display="flex" gap="1.2rem" justifyContent="space-around"><Delete style={{ color: colors.redAccent[600] }}/><ModeIcon style={{ color: colors.greenAccent[700] }}/></Box>}
+                            icon={
+                                <Box
+                                    display="flex"
+                                    gap="1.2rem"
+                                    justifyContent="space-around"
+                                >
+                                    <Delete
+                                        style={{ color: colors.redAccent[600] }}
+                                    />
+                                    <ModeIcon
+                                        style={{
+                                            color: colors.greenAccent[700],
+                                        }}
+                                    />
+                                </Box>
+                            }
                             img={teacher.img}
                             title={teacher.title}
                             trainer={teacher.trainer}
                             group={teacher.group}
+                            key={teacher.id}
                         />
                     ))}
                 </div>
@@ -158,7 +182,12 @@ const Dashboard = () => {
                 </div>
             </Box>
             <Box display="flex" flexDirection={"column"}>
-                <Header title="Lectures" />
+                <div className="flex justify-between items-center">
+                    <Header title="Lectures" />
+                    <Button type="submit" color="secondary" variant="contained">
+                        <Link to={"/lectures"}>View all</Link>
+                    </Button>
+                </div>
                 <div className="flex gap-5 justify-center flex-wrap">
                     {lectures.map((lecture) => (
                         <LecturesCard
@@ -167,7 +196,7 @@ const Dashboard = () => {
                             title={lecture.title}
                             trainer={lecture.trainer}
                             group={lecture.group}
-                            // key={lecture.id}
+                            key={lecture.id}
                         />
                     ))}
                 </div>

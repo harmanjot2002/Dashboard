@@ -1,14 +1,20 @@
-import { Box, IconButton, useTheme } from "@mui/material";
+import { Box, IconButton, Modal, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataTeam } from "../../data/mockData";
 import Delete from "@mui/icons-material/Delete";
 import ModeIcon from '@mui/icons-material/Mode';
 import Header from "../../components/Header";
+import { useState } from "react";
+import DeleteModal from "../../components/DeleteModal";
 
 const Team = () => {
+
+  const [isDelOpen,setIsDelOpen] = useState(false);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const handleClose = () => setIsDelOpen(false);
+  const handleOpen = () => setIsDelOpen(true);
   const columns = [
     { field: "id", headerName: "ID" },
     {
@@ -51,7 +57,7 @@ const Team = () => {
               <IconButton>
                 <ModeIcon />
               </IconButton>
-             <IconButton>
+             <IconButton onClick={handleOpen}>
                 <Delete />
               </IconButton>
               
@@ -60,6 +66,7 @@ const Team = () => {
       },
     },
   ];
+  
 
   return (
     <Box m="20px">
@@ -98,6 +105,7 @@ const Team = () => {
   }}
   pageSizeOptions={[5, 10, 25]}/>
       </Box>
+      <DeleteModal open={isDelOpen} handleClose={handleClose} />
     </Box>
   );
 };
