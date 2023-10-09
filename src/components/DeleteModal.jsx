@@ -16,19 +16,14 @@ const style = {
     p: 4,
 };
 
-const DeleteModal = ({ open, handleClose }) => {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
-    const colorMode = useContext(ColorModeContext);
-    const formik = useFormik({
-        initialValues: {
-            email: "",
-            name: "",
-        },
-        onSubmit: (values) => {
-            console.log(values);
-        },
-    });
+const DeleteModal = ({ open, handleClose,delId }) => {
+    
+    const handleDelete = () => {
+        const data = JSON.parse(localStorage.getItem("team"));
+        const newData = data.filter((e) => e.id !== delId);
+        localStorage.setItem("team", JSON.stringify(newData));
+        handleClose();
+    }
 
     return (
         <Modal
@@ -46,7 +41,7 @@ const DeleteModal = ({ open, handleClose }) => {
                 </div>
                 
                     <Box className="flex gap-10" justifyContent="center">
-                        <Button onClick={()=>{console.log("clicked")}} color="error" variant="contained">Delete</Button>
+                        <Button onClick={()=>{handleDelete()}} color="error" variant="contained">Delete</Button>
                         <Button onClick={handleClose} color="secondary" variant="contained">Cancel</Button>
                     </Box>
             </Box>

@@ -1,4 +1,4 @@
-import { Box, useTheme, Avatar, Button } from "@mui/material";
+import { Box, useTheme, Button } from "@mui/material";
 import Header from "../../components/Header";
 import CourseCard from "./components/CourseCard";
 import LecturesCard from "./components/LecturesCard";
@@ -11,9 +11,8 @@ import dsa from "../../assets/dsa.png";
 import js from "../../assets/js.png";
 import cloud from "../../assets/cloud.png";
 import { tokens } from "../../theme";
-import { deepPurple } from "@mui/material/colors";
 import { Link, Navigate } from "react-router-dom";
-import { mockDataTeam } from "../../data/mockData";
+import { useEffect, useMemo, useState } from "react";
 
 const lectures = [
     {
@@ -80,14 +79,19 @@ const courses = [
     },
 ];
 
-const mockData = JSON.parse(localStorage.getItem("team")) || {};
-
-const teacher = mockData.reverse().slice(0,5) || [];
 
 const Dashboard = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const token = localStorage.getItem("token");
+    const mockData = useMemo(()=>{
+        return JSON.parse(localStorage.getItem("team")).reverse();
+    },[])
+    const [teacher,setTeacher] = useState([]);
+    useEffect(() => {
+        setTeacher(mockData.reverse().splice(0, 5));
+    }, [mockData]);
+
     if (!token) {
         return <Navigate to={"/login"} />;
     }

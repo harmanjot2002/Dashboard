@@ -22,8 +22,11 @@ function App() {
     const { pathname } = useLocation(); 
 
     const token = localStorage.getItem("token");
-    const team = localStorage.getItem("team");
-    if(!team) localStorage.setItem("team", JSON.stringify(mockDataTeam));
+    const team = JSON.parse(localStorage.getItem("team"));
+    if(team === null || team === undefined || team.length === 0){
+        localStorage.setItem("team", JSON.stringify(mockDataTeam));
+        console.log("team ki length zero hogyi hai");
+    }
 
     return (
         <ColorModeContext.Provider value={colorMode}>
