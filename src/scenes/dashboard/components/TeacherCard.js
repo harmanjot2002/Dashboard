@@ -3,14 +3,13 @@ import React from "react";
 import { tokens } from "../../../theme";
 import "./CardsStyles.css";
 
-const TeacherCard = ({ img, title, trainer, group, icon }) => {
+const TeacherCard = ({ img, subject, trainer, group, icon }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     return (
         <div className="w-80 relative flex py-10 gap-5 ps-5 pe-2 mt-1 items-center bg-slate-400 min-h-28 rounded-lg hover-effect">
             <div className="flex justify-center items-center">
-                {/* <img className="w-20" src={img} alt="dev" /> */}
-                <Avatar sx={{height:60,width:60}}>{trainer.slice(0,1)}</Avatar>
+                <Avatar sx={{height:60,width:60}}>{trainer.slice(0,1) || "O"}</Avatar>
             </div>
             <div className="flex flex-col col-span-1 ">
                 <div className="absolute right-2 top-2 flex justify-end">
@@ -31,7 +30,7 @@ const TeacherCard = ({ img, title, trainer, group, icon }) => {
                         color={colors.blueAccent[900]}
                         style={{ lineHeight: "2" }}
                     >
-                        {`Subject: ${title}`}
+                        {`Subject: ${subject}`}
                     </Typography>
                     <Typography
                         variant="h5"

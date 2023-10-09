@@ -10,12 +10,7 @@ const Login = () => {
     const navigate = useNavigate();
 
 
-    const [loginInfo, setLoginInfo] = useState({
-        email: "",
-        password: "",
-    });
-    const { email, password } = loginInfo;
-
+    
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -30,7 +25,8 @@ const Login = () => {
         }),
         onSubmit: (values) => {
             console.log(values);
-            navigate("/");
+            localStorage.setItem("token", JSON.stringify(values));
+            navigate("/dashboard");
         },
     });
 

@@ -12,7 +12,8 @@ import js from "../../assets/js.png";
 import cloud from "../../assets/cloud.png";
 import { tokens } from "../../theme";
 import { deepPurple } from "@mui/material/colors";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { mockDataTeam } from "../../data/mockData";
 
 const lectures = [
     {
@@ -51,43 +52,6 @@ const lectures = [
         group: "G-03",
     },
 ];
-const teachers = [
-    {
-        img: web,
-        title: "Web Development",
-        id: 1,
-        trainer: "Raj Shankar",
-        group: "G-12",
-    },
-    {
-        img: app,
-        title: "App Development",
-        id: 2,
-        trainer: "John Mark",
-        group: "G-13",
-    },
-    {
-        img: dsa,
-        title: "Data Strutures",
-        id: 3,
-        trainer: "Amit Kumar",
-        group: "G-17",
-    },
-    {
-        img: js,
-        title: "Javascript",
-        id: 4,
-        trainer: "Reshab Kumar",
-        group: "G-23",
-    },
-    {
-        img: cloud,
-        title: "Cloud Computing",
-        id: 5,
-        trainer: "Anup Kumar",
-        group: "G-03",
-    },
-];
 const courses = [
     {
         img: web,
@@ -116,9 +80,17 @@ const courses = [
     },
 ];
 
+const mockData = JSON.parse(localStorage.getItem("team")) || {};
+
+const teacher = mockData.reverse().slice(0,5) || [];
+
 const Dashboard = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+    const token = localStorage.getItem("token");
+    if (!token) {
+        return <Navigate to={"/login"} />;
+    }
     return (
         <Box m="20px" className="flex flex-col gap-5">
             <Box
@@ -142,7 +114,7 @@ const Dashboard = () => {
                     </Button>
                 </div>
                 <div className="flex gap-5 justify-center flex-wrap">
-                    {teachers.map((teacher) => (
+                    {teacher.map((teacher) => (
                         <TeacherCard
                             icon={
                                 <Box
@@ -161,8 +133,8 @@ const Dashboard = () => {
                                 </Box>
                             }
                             img={teacher.img}
-                            title={teacher.title}
-                            trainer={teacher.trainer}
+                            subject={teacher.subject}
+                            trainer={teacher.name}
                             group={teacher.group}
                             key={teacher.id}
                         />

@@ -122,6 +122,19 @@ const CreateUser = () => {
         }),
         onSubmit: (values) => {
             console.log(values);
+            const obj = {
+                email: values.email,
+                name: values.name,
+                age: values.dob,
+                subject: values.subject,
+                phone: values.phoneNo,
+                group: values.groupNo,
+                lecture: values.lectureNo,
+                id:new Date().getTime().toString()
+            }
+            const data = JSON.parse(localStorage.getItem("team"));
+            data.push(obj);
+            localStorage.setItem("team",JSON.stringify(data));
             navigate("/");
         },
     });
@@ -190,8 +203,8 @@ const CreateUser = () => {
                                 <TextField
                                     fullWidth
                                     variant="filled"
-                                    type="date"
-                                    // label="Date of Birth"
+                                    type="text"
+                                    label="Age"
                                     id="dob"
                                     onBlur={formik.handleBlur}
                                     onChange={formik.handleChange}

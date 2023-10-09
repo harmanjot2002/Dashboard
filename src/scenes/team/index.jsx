@@ -1,7 +1,6 @@
 import { Box, IconButton, Modal, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataTeam } from "../../data/mockData";
 import Delete from "@mui/icons-material/Delete";
 import ModeIcon from '@mui/icons-material/Mode';
 import Header from "../../components/Header";
@@ -67,7 +66,7 @@ const Team = () => {
     },
   ];
   
-
+  const mockData = JSON.parse(localStorage.getItem("team"));
   return (
     <Box m="20px">
       <Header title="TEAM" subtitle="Managing the Team Members" />
@@ -100,7 +99,7 @@ const Team = () => {
           },
         }}
       >
-        <DataGrid rows={mockDataTeam} columns={columns}  initialState={{
+        <DataGrid rows={mockData} columns={columns}  initialState={{
     pagination: { paginationModel: { pageSize: 5 } },
   }}
   pageSizeOptions={[5, 10, 25]}/>
