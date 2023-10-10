@@ -1,0 +1,6 @@
+.login-body{
+    border:1px solid rgb(184, 217, 226);
+    padding:4rem;
+    box-shadow: 0px 0px 8px 5px rgb(168, 198, 206);
+    border-radius:5%;
+}

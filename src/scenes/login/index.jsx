@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import Header from "../../components/Header";
 import { Divider, TextField, Button} from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
+import './loginStyles.css'
 
 const Login = () => {
 
@@ -32,11 +33,11 @@ const Login = () => {
 
     return (
         <div className="flex flex-col min-h-screen justify-center items-center">
-            <div className="flex justify-center items-center flex-col w-[300px]">
+            <div className="flex justify-center items-center flex-col w-[400px] login-body">
                 <div className="flex justify-center items-center">
                     <Header
                         title="Login"
-                        subtitle="Welcome to your dashboard"
+                        subtitle="Welcome to Terminal"
                         className={"flex flex-col justify-center items-center"}
                     />
                     <Divider />
