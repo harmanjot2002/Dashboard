@@ -1,4 +1,4 @@
-import { createContext, useState, useMemo } from "react";
+import { createContext, useState, useMemo, useEffect } from "react";
 import { createTheme } from "@mui/material/styles";
 
 // color design tokens export
@@ -200,6 +200,18 @@ export const ColorModeContext = createContext({
 
 export const useMode = () => {
   const [mode, setMode] = useState("dark");
+
+  useEffect(() => {
+    // Get the current hour (0-23)
+    const currentHour = new Date().getHours();
+
+    // Set the theme mode based on the time of day
+    if (currentHour >= 19 || currentHour < 7) {
+      setMode("dark"); // Set to dark mode between 7pm and 7am
+    } else {
+      setMode("light"); // Set to light mode during the day
+    }
+  }, []);
 
   const colorMode = useMemo(
     () => ({ 
