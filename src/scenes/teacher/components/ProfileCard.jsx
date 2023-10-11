@@ -115,12 +115,14 @@ const ProfileCard = ({ teacher }) => {
     const navigate = useNavigate();
     const [isDelOpen, setIsDelOpen] = useState(false);
     const [delId, setDelId] = useState(null);
+    const [delEmail, setDelEmail] = useState(null);
     const handleClose = () => {
         setIsDelOpen(false);
     };
     const handleOpen = (e) => {
         setIsDelOpen(true);
         setDelId(e.id);
+        setDelEmail(e.email);
     };
 
     const [graphData,setGraphData] = useState(weekData);
@@ -201,6 +203,7 @@ const ProfileCard = ({ teacher }) => {
                     open={isDelOpen}
                     handleClose={handleClose}
                     navigater={true}
+                    delEmail={delEmail}
                 />
             </div>
             <div className="flex-1 flex gap-5 flex-col justify-center items-end">
