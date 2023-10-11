@@ -14,10 +14,12 @@ const Team = () => {
     const colors = tokens(theme.palette.mode);
     const [isDelOpen, setIsDelOpen] = useState(false);
     const [delId, setDelId] = useState(null);
+    const [delEmail,setDelEmail] = useState(null);
     const handleClose = () => setIsDelOpen(false);
     const handleOpen = (e) => {
         setIsDelOpen(true);
         setDelId(e.id);
+        setDelEmail(e.email);
     };
     const columns = [
         { field: "id", headerName: "ID" },
@@ -120,6 +122,7 @@ const Team = () => {
                 delId={delId}
                 open={isDelOpen}
                 handleClose={handleClose}
+                delEmail={delEmail}
             />
         </Box>
     );
