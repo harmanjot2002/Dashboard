@@ -181,7 +181,7 @@ const Sidebar = () => {
                             setSelected={setSelected}
                             handleClick={()=>{
                               localStorage.removeItem("token");
-                              navigate("/");
+                              navigate("/login");
                             }}
                         />
                     </Box>

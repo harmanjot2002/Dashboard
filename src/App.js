@@ -13,16 +13,17 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Login from "./scenes/login";
 import TeacherProfile from "./scenes/teacher";
-import CreateUser from './scenes/createUser'
+import CreateUser from "./scenes/createUser";
 import Lectures from "./scenes/lectures";
 
 function App() {
     const [theme, colorMode] = useMode();
     const [isSidebar, setIsSidebar] = useState(true);
-
+    const {pathname} = useLocation();
+    console.log(pathname);
     const token = localStorage.getItem("token");
     const team = JSON.parse(localStorage.getItem("team"));
-    if(team === null || team === undefined || team.length === 0){
+    if (team === null || team === undefined || team.length === 0) {
         localStorage.setItem("team", JSON.stringify(mockDataTeam));
         console.log("team ki length zero hogyi hai");
     }
@@ -33,7 +34,7 @@ function App() {
                 <CssBaseline />
                 {!token ? (
                     <Routes>
-                        <Route path="/" element={<Login />} />
+                        <Route path="/login" element={<Login />} />
                     </Routes>
                 ) : (
                     <div className="app">
@@ -41,14 +42,36 @@ function App() {
                         <main className="content max-w-screen overflow-scroll scrollHidden">
                             <Topbar />
                             <Routes>
-                                <Route path="/" element={<Navigate to="/dashboard" />} />
-                                <Route path="/dashboard" element={<Dashboard />} />
+                                <Route
+                                    path="/"
+                                    element={<Navigate to="/dashboard" />}
+                                />
+                                <Route
+                                    path="/login"
+                                    element={<Navigate to="/dashboard" />}
+                                />
+                                <Route
+                                    path="/dashboard"
+                                    element={<Dashboard />}
+                                />
                                 <Route path="/team" element={<Team />} />
                                 <Route path="/form" element={<Form />} />
-                                <Route path="/lectures" element={<Lectures />} />
-                                <Route path="/teacher/:id" element={<TeacherProfile />} />
-                                <Route path="/createUser" element={<CreateUser />} />
-                                <Route path="/update/teacher/:id" element={<CreateUser />} />
+                                <Route
+                                    path="/lectures"
+                                    element={<Lectures />}
+                                />
+                                <Route
+                                    path="/teacher/:id"
+                                    element={<TeacherProfile />}
+                                />
+                                <Route
+                                    path="/createUser"
+                                    element={<CreateUser />}
+                                />
+                                <Route
+                                    path="/update/teacher/:id"
+                                    element={<CreateUser />}
+                                />
                             </Routes>
                         </main>
                     </div>
