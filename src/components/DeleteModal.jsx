@@ -18,13 +18,15 @@ const style = {
 };
 
 const DeleteModal = ({ open, handleClose,delId,navigater }) => {
-    console.log(delId);
     const navigate = useNavigate();
     
     const handleDelete = () => {
         const data = JSON.parse(localStorage.getItem("team"));
+        const teacherLecutres = JSON.parse(localStorage.getItem("teacherLectures"));
         const newData = data.filter((e) => e.id !== delId);
+        const newTeacherLectures = teacherLecutres.filter((e) => e.teacherId !== delId) || [];
         localStorage.setItem("team", JSON.stringify(newData));
+        localStorage.setItem("teacherLectures", JSON.stringify(newTeacherLectures));
         handleClose();
         if(navigater){
             navigate("/")

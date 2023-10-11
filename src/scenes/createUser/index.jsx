@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useLocation, useNavigate } from "react-router-dom";
 import Select from "react-select";
+import { createLectures } from "../../lib/createLectures";
 
 const colourOptions = [
     {
@@ -137,10 +138,18 @@ const CreateUser = () => {
                 phone: values.phoneNo,
                 group: values.groupNo,
                 lecture: values.lectureNo,
-                id:new Date().getTime().toString(),
+                id: pathState ? state?.id : new Date().getTime().toString(),
                 review:[],
                 address:values.address,
             }
+            const groupArr = values.groupNo.split(",").map((item)=>item.trim());
+            const lectureArr = values.lectureNo.split(",").map((item)=>item.trim());
+            const subjectArr = values.subject.split(",").map((item)=>item.trim());
+            if(groupArr.length !== lectureArr.length || groupArr.length !== subjectArr.length){
+                alert("Please select same number of groups, lectures and subjects");
+                return;
+            }
+            createLectures(groupArr,lectureArr,subjectArr,obj);
             const data = JSON.parse(localStorage.getItem("team"));
             if(pathState){
                 const index = data.findIndex((item)=>item.id === state.id);

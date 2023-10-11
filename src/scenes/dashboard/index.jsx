@@ -15,43 +15,6 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import DeleteModal from "../../components/DeleteModal";
 
-const lectures = [
-    {
-        img: web,
-        title: "Web Development",
-        id: 1,
-        trainer: "Raj Shankar",
-        group: "G-12",
-    },
-    {
-        img: app,
-        title: "App Development",
-        id: 2,
-        trainer: "John Mark",
-        group: "G-13",
-    },
-    {
-        img: dsa,
-        title: "DSA",
-        id: 3,
-        trainer: "Amit Kumar",
-        group: "G-17",
-    },
-    {
-        img: js,
-        title: "Javascript",
-        id: 4,
-        trainer: "Reshab Kumar",
-        group: "G-23",
-    },
-    {
-        img: cloud,
-        title: "Cloud Computing",
-        id: 5,
-        trainer: "Anupinder Singh",
-        group: "G-03",
-    },
-];
 const courses = [
     {
         img: web,
@@ -97,10 +60,15 @@ const Dashboard = () => {
         setDelId(e.id);
     };
     const [teacher, setTeacher] = useState([]);
+    const [teacherLectures, setTeacherLectures] = useState([]);
     useEffect(() => {
         const mockData = JSON.parse(localStorage.getItem("team"));
+        const mockLectures = JSON.parse(
+            localStorage.getItem("teacherLectures")
+        );
         console.log("mock Data", mockData);
         setTeacher(mockData.reverse().splice(0, 5));
+        setTeacherLectures(mockLectures.reverse().splice(0, 5));
     }, [refresh]);
 
     if (!token) {
@@ -145,7 +113,12 @@ const Dashboard = () => {
                                         style={{ color: colors.redAccent[600] }}
                                     />
                                     <ModeIcon
-                                        onClick={()=>{navigate("/update/teacher/"+teacher.id,{state:teacher})}}
+                                        onClick={() => {
+                                            navigate(
+                                                "/update/teacher/" + teacher.id,
+                                                { state: teacher }
+                                            );
+                                        }}
                                         style={{
                                             color: colors.greenAccent[700],
                                         }}
@@ -182,18 +155,24 @@ const Dashboard = () => {
                         <Link to={"/lectures"}>View all</Link>
                     </Button>
                 </div>
-                <div className="flex gap-5 justify-center flex-wrap">
-                    {lectures.map((lecture) => (
-                        <LecturesCard
-                            img={lecture.img}
-                            id={lecture.id}
-                            title={lecture.title}
-                            trainer={lecture.trainer}
-                            group={lecture.group}
-                            key={lecture.id}
-                        />
-                    ))}
-                </div>
+                {teacherLectures.length > 0 ? (
+                    <div className="flex gap-5 justify-center flex-wrap">
+                        {teacherLectures.map((lecture) => (
+                            <LecturesCard
+                                img={web}
+                                lecture={lecture.lecture}
+                                subject={lecture.subject}
+                                trainer={lecture.teacherName}
+                                group={lecture.group}
+                                key={lecture.id}
+                            />
+                        ))}
+                    </div>
+                ) : (
+                    <div className="flex justify-center items-center min-h-[50vh]">
+                        <h1 className="text-5xl">No lectures available</h1>
+                    </div>
+                )}
             </Box>
             <DeleteModal
                 delId={delId}

@@ -4,7 +4,7 @@ import { tokens } from "../../../theme";
 import './CardsStyles.css'
 
 
-const LecturesCard = ({ img,id,title,trainer,group }) => {
+const LecturesCard = ({ img,lecture,subject,trainer,group }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     return (
@@ -12,10 +12,10 @@ const LecturesCard = ({ img,id,title,trainer,group }) => {
             <img className="w-20" src={img} alt="dev" />
             {/* <div className="flex-col justify-center hover-effect"> */}
                 <Typography variant="h5" color={colors.blueAccent[900]}>
-                    {`Lecture: ${id}`}
+                    {`Lecture: ${lecture}`}
                 </Typography>
                 <Typography variant="h5" color={colors.blueAccent[900]}>
-                    {`Subject: ${title}`}
+                    {`Subject: ${subject}`}
                 </Typography> 
                 <Typography variant="h5" color={colors.blueAccent[900]}>
                     {`Trainer: ${trainer}`}
