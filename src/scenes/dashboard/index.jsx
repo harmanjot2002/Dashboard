@@ -11,8 +11,9 @@ import dsa from "../../assets/dsa.png";
 import js from "../../assets/js.png";
 import cloud from "../../assets/cloud.png";
 import { tokens } from "../../theme";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
+import DeleteModal from "../../components/DeleteModal";
 
 const lectures = [
     {
@@ -79,18 +80,28 @@ const courses = [
     },
 ];
 
-
 const Dashboard = () => {
+    const navigate = useNavigate();
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const token = localStorage.getItem("token");
-    const mockData = useMemo(()=>{
-        return JSON.parse(localStorage.getItem("team")).reverse();
-    },[])
-    const [teacher,setTeacher] = useState([]);
+    const [isDelOpen, setIsDelOpen] = useState(false);
+    const [delId, setDelId] = useState(null);
+    const handleClose = () => {
+        setIsDelOpen(false);
+        setRefresh((prevValue) => !prevValue);
+    };
+    const [refresh, setRefresh] = useState(false);
+    const handleOpen = (e) => {
+        setIsDelOpen(true);
+        setDelId(e.id);
+    };
+    const [teacher, setTeacher] = useState([]);
     useEffect(() => {
+        const mockData = JSON.parse(localStorage.getItem("team"));
+        console.log("mock Data", mockData);
         setTeacher(mockData.reverse().splice(0, 5));
-    }, [mockData]);
+    }, [refresh]);
 
     if (!token) {
         return <Navigate to={"/login"} />;
@@ -127,9 +138,13 @@ const Dashboard = () => {
                                     justifyContent="space-around"
                                 >
                                     <Delete
+                                        onClick={() => {
+                                            handleOpen(teacher);
+                                        }}
                                         style={{ color: colors.redAccent[600] }}
                                     />
                                     <ModeIcon
+                                        onClick={()=>{navigate("/update/teacher/"+teacher.id,{state:teacher})}}
                                         style={{
                                             color: colors.greenAccent[700],
                                         }}
@@ -141,6 +156,7 @@ const Dashboard = () => {
                             trainer={teacher.name}
                             group={teacher.group}
                             key={teacher.id}
+                            lecture={teacher.lecture}
                         />
                     ))}
                 </div>
@@ -177,6 +193,11 @@ const Dashboard = () => {
                     ))}
                 </div>
             </Box>
+            <DeleteModal
+                delId={delId}
+                open={isDelOpen}
+                handleClose={handleClose}
+            />
         </Box>
     );
 };

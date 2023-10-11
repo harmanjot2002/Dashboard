@@ -3,7 +3,7 @@ import Header from "../../components/Header";
 import { Divider, TextField, Button, Grid } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Select from "react-select";
 
 const colourOptions = [
@@ -95,17 +95,25 @@ for(let i = 1;i<25;i++){
 
 const CreateUser = () => {
     const navigate = useNavigate();
-
+    const {state,pathname} = useLocation();
+    let pathState = false;
+    if(pathname.includes("/update")){
+        pathState = true;
+    }
+    else{
+        pathState = false;
+    }
+    console.log(pathState);
     const formik = useFormik({
         initialValues: {
-            email: "",
-            name: "",
-            dob: "",
-            address: "",
-            subject: "",
-            phoneNo: "",
-            lectureNo: "",
-            groupNo: "",
+            email: state?.email || "",
+            name: state?.name || "",
+            dob: state?.age || "",
+            address: state?.address || "",
+            subject: state?.subject || "",
+            phoneNo: state?.phone || "",
+            lectureNo: state?.lecture || "",
+            groupNo: state?.group || "",
         },
         validationSchema: yup.object({
             email: yup
@@ -121,7 +129,6 @@ const CreateUser = () => {
             groupNo: yup.string().required("Required"),
         }),
         onSubmit: (values) => {
-            console.log(values);
             const obj = {
                 email: values.email,
                 name: values.name,
@@ -130,15 +137,42 @@ const CreateUser = () => {
                 phone: values.phoneNo,
                 group: values.groupNo,
                 lecture: values.lectureNo,
-                id:new Date().getTime().toString()
+                id:new Date().getTime().toString(),
+                review:[],
+                address:values.address,
             }
             const data = JSON.parse(localStorage.getItem("team"));
-            data.push(obj);
+            if(pathState){
+                const index = data.findIndex((item)=>item.id === state.id);
+                data[index] = obj;
+            }
+            else{
+                data.push(obj);
+            }
             localStorage.setItem("team",JSON.stringify(data));
             navigate("/");
         },
     });
 
+    const defaultLectureValues = [];
+    const defaultGroupValues = [];
+    const defaultSubjectValues = [];
+    if(state?.lecture){
+        state?.lecture.split(",").map((item)=>{
+            return defaultLectureValues.push({id:item,label:item,value:item})
+        })
+    }
+    if(state?.group){
+        state?.group.split(",").map((item)=>{
+            return defaultGroupValues.push({id:item,label:item,value:item})
+        })
+    }
+    if(state?.subject){
+        state?.subject.split(",").map((item)=>{
+            return defaultSubjectValues.push({id:item,label:item,value:item})
+        })
+    }
+    console.log(defaultLectureValues);
     return (
         <div className="flex flex-col min-h-screen justify-center items-center">
             <div className="flex justify-center items-center flex-col w-[800px]">
@@ -155,7 +189,7 @@ const CreateUser = () => {
                     action=""
                     className="w-full flex flex-col gap-5"
                 >
-                    <Grid container spacing={2}>
+                    <Grid spacing={2}>
                         <Grid item xs={8} md={6}>
                             <div className="mb-5">
                                 <TextField
@@ -243,6 +277,7 @@ const CreateUser = () => {
                                         formik.touched.lectureNo &&
                                         formik.errors.lectureNo
                                     }
+                                    defaultValue={defaultLectureValues}
                                     styles={{
                                         menu: (provided) => ({
                                             ...provided,
@@ -278,6 +313,7 @@ const CreateUser = () => {
                                         formik.touched.subject &&
                                         formik.errors.subject
                                     }
+                                    defaultValue={defaultSubjectValues}
                                     styles={{
                                         menu: (provided) => ({
                                             ...provided,
@@ -353,6 +389,7 @@ const CreateUser = () => {
                                         formik.touched.groupNo &&
                                         formik.errors.groupNo
                                     }
+                                    defaultValue={defaultGroupValues}
                                     styles={{
                                         menu: (provided) => ({
                                             ...provided,
@@ -375,7 +412,7 @@ const CreateUser = () => {
                             color="secondary"
                             variant="contained"
                         >
-                            Add User
+                            {pathState ? "Update Teacher" : "Add User"}
                         </Button>
                     </div>
                 </form>

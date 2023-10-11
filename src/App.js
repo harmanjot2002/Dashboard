@@ -49,6 +49,7 @@ function App() {
                                 <Route path="/lectures" element={<Lectures />} />
                                 <Route path="/teacher/:id" element={<TeacherProfile />} />
                                 <Route path="/createUser" element={<CreateUser />} />
+                                <Route path="/update/teacher/:id" element={<CreateUser />} />
                             </Routes>
                         </main>
                     </div>

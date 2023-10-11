@@ -17,6 +17,7 @@ const style = {
 };
 
 const DeleteModal = ({ open, handleClose,delId }) => {
+    console.log(delId);
     
     const handleDelete = () => {
         const data = JSON.parse(localStorage.getItem("team"));

@@ -3,7 +3,7 @@ import React from "react";
 import { tokens } from "../../../theme";
 import "./CardsStyles.css";
 
-const TeacherCard = ({ img, subject, trainer, group, icon }) => {
+const TeacherCard = ({ img, subject, trainer, group, icon,lecture }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     return (
@@ -38,6 +38,13 @@ const TeacherCard = ({ img, subject, trainer, group, icon }) => {
                         style={{ lineHeight: "2" }}
                     >
                         {`Group: ${group}`}
+                    </Typography>
+                    <Typography
+                        variant="h5"
+                        color={colors.blueAccent[900]}
+                        style={{ lineHeight: "2" }}
+                    >
+                        {`Lecture: ${lecture}`}
                     </Typography>
                 </div>
             </div>

@@ -6,12 +6,14 @@ import ModeIcon from "@mui/icons-material/Mode";
 import Header from "../../components/Header";
 import { useState } from "react";
 import DeleteModal from "../../components/DeleteModal";
+import { useNavigate } from "react-router-dom";
 
 const Team = () => {
-    const [isDelOpen, setIsDelOpen] = useState(false);
-    const [delId, setDelId] = useState(null);
+    const navigate = useNavigate();
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+    const [isDelOpen, setIsDelOpen] = useState(false);
+    const [delId, setDelId] = useState(null);
     const handleClose = () => setIsDelOpen(false);
     const handleOpen = (e) => {
         setIsDelOpen(true);
@@ -54,7 +56,14 @@ const Team = () => {
                         justifyContent="space-around"
                         borderRadius="4px"
                     >
-                        <IconButton>
+                        <IconButton
+                            // onClick={() => {
+                            //     navigate("/update/teacher/" + val.id, {
+                            //         state: val,
+                            //     });
+                            // }}
+                            onClick={()=>{navigate("/update/teacher/"+val.id,{state:val.row})}}
+                        >
                             <ModeIcon />
                         </IconButton>
                         <IconButton onClick={() => handleOpen(val)}>
@@ -107,7 +116,11 @@ const Team = () => {
                     pageSizeOptions={[5, 10, 25]}
                 />
             </Box>
-            <DeleteModal delId={delId}  open={isDelOpen} handleClose={handleClose} />
+            <DeleteModal
+                delId={delId}
+                open={isDelOpen}
+                handleClose={handleClose}
+            />
         </Box>
     );
 };
