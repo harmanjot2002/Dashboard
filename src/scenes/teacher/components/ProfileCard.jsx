@@ -4,6 +4,51 @@ import web from "../../../assets/web.png";
 import { useNavigate } from "react-router-dom";
 import DeleteModal from "../../../components/DeleteModal";
 
+import {
+    BarChart,
+    Bar,
+    Cell,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    Tooltip,
+    Legend,
+    ResponsiveContainer,
+} from "recharts";
+
+const data = [
+    {
+        name: "Mon",
+        pv: 3,
+        amt: 2400,
+    },
+    {
+        name: "Tue",
+        pv: 4,
+        amt: 2210,
+    },
+    {
+        name: "Wed",
+        pv: 3.5,
+        amt: 2290,
+    },
+    {
+        name: "Thu",
+        pv: 4.2,
+        amt: 2000,
+    },
+    {
+        name: "Fri",
+        pv: 4.5,
+        amt: 2181,
+    },
+    {
+        name: "Sat",
+        pv: 3.1,
+        amt: 2500,
+    },
+];
+
 const ProfileCard = ({ teacher }) => {
     const navigate = useNavigate();
     const [isDelOpen, setIsDelOpen] = useState(false);
@@ -56,7 +101,13 @@ const ProfileCard = ({ teacher }) => {
                         >
                             Update
                         </Button>
-                        <Button color="secondary" variant="contained" onClick={()=>{handleOpen(teacher)}} >
+                        <Button
+                            color="secondary"
+                            variant="contained"
+                            onClick={() => {
+                                handleOpen(teacher);
+                            }}
+                        >
                             Delete
                         </Button>
                     </div>
@@ -69,7 +120,27 @@ const ProfileCard = ({ teacher }) => {
                 />
             </div>
             <div className="flex-1 flex justify-center items-center">
-                <img className="h-80 w-80 " src={web} alt="web" />
+                {/* <img className="h-80 w-80 " src={web} alt="web" /> */}
+                {/* <ResponsiveContainer width="100%" height="100%"> */}
+                    <BarChart
+                        width={500}
+                        height={300}
+                        data={data}
+                        margin={{
+                            top: 5,
+                            right: 30,
+                            left: 20,
+                            bottom: 5,
+                        }}
+                    >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Bar dataKey="pv" fill="#8884d8" />
+                    </BarChart>
+                {/* </ResponsiveContainer> */}
             </div>
         </div>
     );
