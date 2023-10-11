@@ -19,7 +19,6 @@ import Lectures from "./scenes/lectures";
 function App() {
     const [theme, colorMode] = useMode();
     const [isSidebar, setIsSidebar] = useState(true);
-    const { pathname } = useLocation(); 
 
     const token = localStorage.getItem("token");
     const team = JSON.parse(localStorage.getItem("team"));

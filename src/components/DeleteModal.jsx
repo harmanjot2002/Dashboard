@@ -3,6 +3,7 @@ import { ColorModeContext, tokens } from "../theme";
 import { deepPurple } from "@mui/material/colors";
 import { useFormik } from "formik";
 import React,{useContext} from "react";
+import { useNavigate } from "react-router-dom";
 const style = {
     position: "absolute",
     top: "50%",
@@ -16,14 +17,18 @@ const style = {
     p: 4,
 };
 
-const DeleteModal = ({ open, handleClose,delId }) => {
+const DeleteModal = ({ open, handleClose,delId,navigater }) => {
     console.log(delId);
+    const navigate = useNavigate();
     
     const handleDelete = () => {
         const data = JSON.parse(localStorage.getItem("team"));
         const newData = data.filter((e) => e.id !== delId);
         localStorage.setItem("team", JSON.stringify(newData));
         handleClose();
+        if(navigater){
+            navigate("/")
+        }
     }
 
     return (

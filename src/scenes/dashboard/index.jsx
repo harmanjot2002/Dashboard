@@ -12,7 +12,7 @@ import js from "../../assets/js.png";
 import cloud from "../../assets/cloud.png";
 import { tokens } from "../../theme";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import DeleteModal from "../../components/DeleteModal";
 
 const lectures = [
@@ -136,6 +136,7 @@ const Dashboard = () => {
                                     display="flex"
                                     gap="1.2rem"
                                     justifyContent="space-around"
+                                    className="z-10"
                                 >
                                     <Delete
                                         onClick={() => {
@@ -157,6 +158,7 @@ const Dashboard = () => {
                             group={teacher.group}
                             key={teacher.id}
                             lecture={teacher.lecture}
+                            all={teacher}
                         />
                     ))}
                 </div>

@@ -1,4 +1,4 @@
-import { Box, IconButton, Modal, useTheme } from "@mui/material";
+import { Box, IconButton, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Delete from "@mui/icons-material/Delete";
@@ -57,11 +57,6 @@ const Team = () => {
                         borderRadius="4px"
                     >
                         <IconButton
-                            // onClick={() => {
-                            //     navigate("/update/teacher/" + val.id, {
-                            //         state: val,
-                            //     });
-                            // }}
                             onClick={()=>{navigate("/update/teacher/"+val.id,{state:val.row})}}
                         >
                             <ModeIcon />
@@ -111,9 +106,14 @@ const Team = () => {
                     rows={mockData.reverse()}
                     columns={columns}
                     initialState={{
-                        pagination: { paginationModel: { pageSize: 5 } },
+                        pagination: { paginationModel: { pageSize: 10 } },
                     }}
                     pageSizeOptions={[5, 10, 25]}
+                    onCellClick={(e)=>{
+                        if(e.field === "name"){
+                            navigate("/update/teacher/"+e.id,{state:e.row})
+                        }
+                    }}
                 />
             </Box>
             <DeleteModal
