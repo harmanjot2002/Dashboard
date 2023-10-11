@@ -51,6 +51,33 @@ const weekData = [
 
 const monthData = [
     {
+        name:"Week 1",
+        pv: 3,
+        amt: 2400,
+    },
+    {
+        name:"Week 2",
+        pv: 4,
+        amt: 2210,
+    },
+    {
+        name:"Week 3",
+        pv: 3.5,
+        amt: 2290,
+    },
+    {
+        name:"Week 4",
+        pv: 4.2,
+        amt: 2000,
+    },
+    {
+        name:"Week 5",
+        pv: 4.5,
+        amt: 2181,
+    }
+]
+const yearData = [
+    {
         name:"Jan",
         pv: 3,
         amt: 2400,
@@ -96,9 +123,27 @@ const ProfileCard = ({ teacher }) => {
         setDelId(e.id);
     };
 
+    const [graphData,setGraphData] = useState(weekData);
+
     const handleChange = (e) => {
-        console.log(e.target.value);
+        switch(e.target.value){
+            case "week":
+                setGraphData(weekData);
+                break;
+            case "month":
+                setGraphData(monthData);
+                break;
+            case "year":
+                setGraphData(yearData);
+                break;
+            default:
+                setGraphData(weekData);
+                break;
+        }
     };
+
+    console.log(graphData);
+
 
     return (
         <div className="h-96 p-5 flex justify-between items-center gap-10 w-full bg-slate-400 rounded-lg hover-effect ">
@@ -162,7 +207,7 @@ const ProfileCard = ({ teacher }) => {
             <div className="flex-1 flex gap-5 flex-col justify-center items-end">
                 {/* <img className="h-80 w-80 " src={web} alt="web" /> */}
                 {/* <ResponsiveContainer width="100%" height="100%"> */}
-                <select className="text-black p-2" name="data" id="data">
+                <select onChange={handleChange} className="text-black p-2" name="data" id="data">
                     <option value="week">Weekly</option>
                     <option value="month">month</option>
                     <option value="year">year</option>
@@ -170,7 +215,7 @@ const ProfileCard = ({ teacher }) => {
                     <BarChart
                         width={800}
                         height={300}
-                        data={weekData}
+                        data={graphData}
                         margin={{
                             top: 5,
                             right: 30,
