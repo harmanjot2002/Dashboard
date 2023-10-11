@@ -142,7 +142,6 @@ const ProfileCard = ({ teacher }) => {
         }
     };
 
-    console.log(graphData);
 
 
     return (

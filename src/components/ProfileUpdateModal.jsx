@@ -26,7 +26,7 @@ const ProfileUpdateModal = ({ open, handleClose }) => {
             name: "",
         },
         onSubmit: (values) => {
-            console.log(values);
+            // console.log(values);
         },
     });
 

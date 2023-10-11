@@ -175,7 +175,7 @@ const Sidebar = () => {
                             setSelected={setSelected}
                         />
                         <Item
-                            title="Create User"
+                            title="Logout"
                             icon={<LogoutIcon />}
                             selected={selected}
                             setSelected={setSelected}

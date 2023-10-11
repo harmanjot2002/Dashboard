@@ -8,7 +8,7 @@ import Form from "./scenes/form";
 // import Contacts from "./scenes/contacts";
 
 import { mockDataTeam } from "./data/mockData";
-
+import { userData } from "./data/userData";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Login from "./scenes/login";
@@ -20,12 +20,16 @@ function App() {
     const [theme, colorMode] = useMode();
     const [isSidebar, setIsSidebar] = useState(true);
     const {pathname} = useLocation();
-    console.log(pathname);
     const token = localStorage.getItem("token");
     const team = JSON.parse(localStorage.getItem("team"));
+    const users = JSON.parse(localStorage.getItem("users"));
     if (team === null || team === undefined || team.length === 0) {
         localStorage.setItem("team", JSON.stringify(mockDataTeam));
-        console.log("team ki length zero hogyi hai");
+        // console.log("team ki length zero hogyi hai");
+    }
+    if(users === null || users === undefined || users.length === 0){
+        localStorage.setItem("users", JSON.stringify(userData));
+        // console.log("users ki length zero hogyi hai");
     }
 
     return (

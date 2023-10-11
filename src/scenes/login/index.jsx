@@ -25,9 +25,20 @@ const Login = () => {
             password: yup.string().required("Required"),
         }),
         onSubmit: (values) => {
-            console.log(values);
-            localStorage.setItem("token", JSON.stringify(values));
-            navigate("/dashboard");
+            const { email, password } = values;
+            const userData = JSON.parse(localStorage.getItem("users")) || [];
+            const user = userData.find((user) => user.email === email);
+            if (user) {
+                if (user.password === password) {
+                    localStorage.setItem("token", JSON.stringify(user));
+                    navigate("/dashboard");
+                } else {
+                    alert("Incorrect Password");
+                }
+            }
+            else{
+                alert("User not found");
+            }
         },
     });
 

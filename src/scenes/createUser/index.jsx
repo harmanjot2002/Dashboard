@@ -104,7 +104,6 @@ const CreateUser = () => {
     else{
         pathState = false;
     }
-    console.log(pathState);
     const formik = useFormik({
         initialValues: {
             email: state?.email || "",
@@ -142,6 +141,15 @@ const CreateUser = () => {
                 review:[],
                 address:values.address,
             }
+            const password = values.email.split("@")[0] + values.dob;
+            const obj2 = {
+                email: values.email,
+                name: values.name,
+                phone: values.phoneNo,
+                role:"user",
+                password:password
+            }
+            alert("User Added Successfully \nEmail: " + values.email + "\nPassword: "+password)
             const groupArr = values.groupNo.split(",").map((item)=>item.trim());
             const lectureArr = values.lectureNo.split(",").map((item)=>item.trim());
             const subjectArr = values.subject.split(",").map((item)=>item.trim());
@@ -151,14 +159,17 @@ const CreateUser = () => {
             }
             createLectures(groupArr,lectureArr,subjectArr,obj);
             const data = JSON.parse(localStorage.getItem("team"));
+            const users = JSON.parse(localStorage.getItem("users"));
             if(pathState){
                 const index = data.findIndex((item)=>item.id === state.id);
                 data[index] = obj;
             }
             else{
                 data.push(obj);
+                users.push(obj2);
             }
             localStorage.setItem("team",JSON.stringify(data));
+            localStorage.setItem("users",JSON.stringify(users));
             navigate("/");
         },
     });
@@ -181,7 +192,6 @@ const CreateUser = () => {
             return defaultSubjectValues.push({id:item,label:item,value:item})
         })
     }
-    console.log(defaultLectureValues);
     return (
         <div className="flex flex-col min-h-screen justify-center items-center">
             <div className="flex justify-center items-center flex-col w-[800px]">

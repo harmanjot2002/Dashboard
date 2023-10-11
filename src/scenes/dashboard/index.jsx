@@ -50,6 +50,7 @@ const Dashboard = () => {
     const token = localStorage.getItem("token");
     const [isDelOpen, setIsDelOpen] = useState(false);
     const [delId, setDelId] = useState(null);
+    const [delEmail,setDelEmail] = useState(null);
     const handleClose = () => {
         setIsDelOpen(false);
         setRefresh((prevValue) => !prevValue);
@@ -58,6 +59,7 @@ const Dashboard = () => {
     const handleOpen = (e) => {
         setIsDelOpen(true);
         setDelId(e.id);
+        setDelEmail(e.email);
     };
     const [teacher, setTeacher] = useState([]);
     const [teacherLectures, setTeacherLectures] = useState([]);
@@ -66,7 +68,6 @@ const Dashboard = () => {
         const mockLectures = JSON.parse(
             localStorage.getItem("teacherLectures")
         ) || [];
-        console.log("mock Data", mockData);
         setTeacher(mockData.reverse().splice(0, 5));
         setTeacherLectures(mockLectures.reverse().splice(0, 5));
     }, [refresh]);
@@ -178,6 +179,7 @@ const Dashboard = () => {
                 delId={delId}
                 open={isDelOpen}
                 handleClose={handleClose}
+                delEmail={delEmail}
             />
         </Box>
     );
