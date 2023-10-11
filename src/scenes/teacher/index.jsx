@@ -26,7 +26,7 @@ const TeacherProfile = () => {
         <div className="p-5">
             <Header title={"Profile"} />
             <ProfileCard teacher={state} />
-            <TeacherRating />
+            <TeacherRating teacher={state}/>
             <TeacherLecure teacherLectures={teacherLectures} /> 
         </div>
     );
