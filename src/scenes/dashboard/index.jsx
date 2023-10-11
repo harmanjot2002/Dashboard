@@ -62,10 +62,10 @@ const Dashboard = () => {
     const [teacher, setTeacher] = useState([]);
     const [teacherLectures, setTeacherLectures] = useState([]);
     useEffect(() => {
-        const mockData = JSON.parse(localStorage.getItem("team"));
+        const mockData = JSON.parse(localStorage.getItem("team")) || [];
         const mockLectures = JSON.parse(
             localStorage.getItem("teacherLectures")
-        );
+        ) || [];
         console.log("mock Data", mockData);
         setTeacher(mockData.reverse().splice(0, 5));
         setTeacherLectures(mockLectures.reverse().splice(0, 5));

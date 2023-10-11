@@ -16,7 +16,7 @@ import {
     ResponsiveContainer,
 } from "recharts";
 
-const data = [
+const weekData = [
     {
         name: "Mon",
         pv: 3,
@@ -49,6 +49,41 @@ const data = [
     },
 ];
 
+const monthData = [
+    {
+        name:"Jan",
+        pv: 3,
+        amt: 2400,
+    },
+    {
+        name:"Feb",
+        pv: 4,
+        amt: 2210,
+    },
+    {
+        name:"Mar",
+        pv: 3.5,
+        amt: 2290,
+    },
+    {
+        name:"Apr",
+        pv: 4.2,
+        amt: 2000,
+    },
+    {
+        name:"May",
+        pv: 4.5,
+        amt: 2181,
+    },
+    {
+        name:"Jun",
+        pv: 3.1,
+        amt: 2500,
+    }
+]
+
+
+
 const ProfileCard = ({ teacher }) => {
     const navigate = useNavigate();
     const [isDelOpen, setIsDelOpen] = useState(false);
@@ -60,6 +95,11 @@ const ProfileCard = ({ teacher }) => {
         setIsDelOpen(true);
         setDelId(e.id);
     };
+
+    const handleChange = (e) => {
+        console.log(e.target.value);
+    };
+
     return (
         <div className="h-96 p-5 flex justify-between items-center gap-10 w-full bg-slate-400 rounded-lg hover-effect ">
             <div className="flex flex-1 gap-10">
@@ -119,13 +159,18 @@ const ProfileCard = ({ teacher }) => {
                     navigater={true}
                 />
             </div>
-            <div className="flex-1 flex justify-center items-center">
+            <div className="flex-1 flex gap-5 flex-col justify-center items-end">
                 {/* <img className="h-80 w-80 " src={web} alt="web" /> */}
                 {/* <ResponsiveContainer width="100%" height="100%"> */}
+                <select className="text-black p-2" name="data" id="data">
+                    <option value="week">Weekly</option>
+                    <option value="month">month</option>
+                    <option value="year">year</option>
+                </select>
                     <BarChart
-                        width={500}
+                        width={800}
                         height={300}
-                        data={data}
+                        data={weekData}
                         margin={{
                             top: 5,
                             right: 30,
