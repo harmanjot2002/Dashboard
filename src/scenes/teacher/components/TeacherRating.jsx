@@ -37,11 +37,13 @@ const TeacherRating = ({ teacher }) => {
         setReviews(team[foundIndex].review);
     }, [refresh, teacher.id]);
 
+    const token = JSON.parse(localStorage.getItem("token"));
+
     return (
         <div className="py-20">
-            <Header title="Rating" />
+            { token?.role === 'admin' &&  <Header title="Rating" />}
             <div className="flex flex-col gap-5 justify-center flex-wrap">
-                <div className="h-90 p-5 flex justify-between items-center w-full bg-slate-400 rounded-lg hover-effect">
+                { token?.role === 'admin' && <div className="h-90 p-5 flex justify-between items-center w-full bg-slate-400 rounded-lg hover-effect">
                     <Grid container spacing={2} className="w-full h-full">
                         <Grid item xs={6} className="p-4 pl-8">
                             <div>
@@ -98,7 +100,7 @@ const TeacherRating = ({ teacher }) => {
                             </div>
                         </Grid>
                     </Grid>
-                </div>
+                </div>}
                 <div>
                     <Typography variant="h2" sx={{ marginBottom: "8px" }}>
                         Your review
@@ -111,7 +113,7 @@ const TeacherRating = ({ teacher }) => {
                         </Typography>
                     ) : (
                         <div className="w-full max-h-[600px] overflow-y-scroll">
-                            {reviews.map((r, index) => (
+                            {reviews?.map((r, index) => (
                                 <div
                                     className="flex gap-5 items-center w-[98%] bg-slate-400 rounded-lg hover-effect mb-5"
                                     key={index}

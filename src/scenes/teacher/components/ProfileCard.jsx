@@ -174,6 +174,7 @@ const ProfileCard = ({ teacher }) => {
         }
     };
 
+    const token = JSON.parse(localStorage.getItem("token"));
 
 
     return (
@@ -205,7 +206,7 @@ const ProfileCard = ({ teacher }) => {
                         <Typography variant="h3">Lecture : </Typography>
                         <Typography variant="h3">{teacher.lecture}</Typography>
                     </div>
-                    <div className="flex gap-5 my-5">
+                    { token?.role === 'admin' &&  <div className="flex gap-5 my-5">
                         <Button
                             color="secondary"
                             variant="contained"
@@ -226,7 +227,7 @@ const ProfileCard = ({ teacher }) => {
                         >
                             Delete
                         </Button>
-                    </div>
+                    </div>}
                 </div>
                 <DeleteModal
                     delId={delId}

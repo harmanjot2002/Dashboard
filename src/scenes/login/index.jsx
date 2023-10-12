@@ -1,17 +1,14 @@
 import React from "react";
 import Header from "../../components/Header";
-import { Divider, TextField, Button} from "@mui/material";
+import { Divider, TextField, Button } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
-import './loginStyles.css'
+import "./loginStyles.css";
 
 const Login = () => {
-
     const navigate = useNavigate();
 
-
-    
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -31,12 +28,12 @@ const Login = () => {
             if (user) {
                 if (user.password === password) {
                     localStorage.setItem("token", JSON.stringify(user));
-                    navigate("/dashboard");
+                    if (user.role === "admin") navigate("/dashboard");
+                    else if (user.role === "user") navigate("/");
                 } else {
                     alert("Incorrect Password");
                 }
-            }
-            else{
+            } else {
                 alert("User not found");
             }
         },
@@ -68,13 +65,8 @@ const Login = () => {
                         onChange={formik.handleChange}
                         value={formik.values.email}
                         name="email"
-                        error={
-                            !!formik.touched.email &&
-                            !!formik.errors.email
-                        }
-                        helperText={
-                            formik.touched.email && formik.errors.email
-                        }
+                        error={!!formik.touched.email && !!formik.errors.email}
+                        helperText={formik.touched.email && formik.errors.email}
                     />
                     <TextField
                         fullWidth
@@ -94,8 +86,16 @@ const Login = () => {
                             formik.touched.password && formik.errors.password
                         }
                     />
-                    <div display="flex" mt="20px" className="flex justify-center items-center">
-                        <Button type="submit" color="secondary" variant="contained">
+                    <div
+                        display="flex"
+                        mt="20px"
+                        className="flex justify-center items-center"
+                    >
+                        <Button
+                            type="submit"
+                            color="secondary"
+                            variant="contained"
+                        >
                             Login
                         </Button>
                     </div>

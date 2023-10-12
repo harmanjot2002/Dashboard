@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
@@ -15,22 +15,29 @@ import Login from "./scenes/login";
 import TeacherProfile from "./scenes/teacher";
 import CreateUser from "./scenes/createUser";
 import Lectures from "./scenes/lectures";
+import OnlyTeacherProfile from "./scenes/teacher/OnlyTeacher";
 
 function App() {
     const [theme, colorMode] = useMode();
     const [isSidebar, setIsSidebar] = useState(true);
-    const {pathname} = useLocation();
-    const token = localStorage.getItem("token");
+    const { pathname } = useLocation();
+    const token = JSON.parse(localStorage.getItem("token"));
     const team = JSON.parse(localStorage.getItem("team"));
     const users = JSON.parse(localStorage.getItem("users"));
     if (team === null || team === undefined || team.length === 0) {
         localStorage.setItem("team", JSON.stringify(mockDataTeam));
-        // console.log("team ki length zero hogyi hai");
     }
-    if(users === null || users === undefined || users.length === 0){
+    if (users === null || users === undefined || users.length === 0) {
         localStorage.setItem("users", JSON.stringify(userData));
-        // console.log("users ki length zero hogyi hai");
     }
+    let role = "admin";
+    let user = null;
+
+    role = token?.role;
+    const u = team.filter((t) => t.email === token?.email)[0] || null;
+    console.log(u,role);
+    user = u;
+   
 
     return (
         <ColorModeContext.Provider value={colorMode}>
@@ -40,7 +47,7 @@ function App() {
                     <Routes>
                         <Route path="/login" element={<Login />} />
                     </Routes>
-                ) : (
+                ) : role === "admin" ? (
                     <div className="app">
                         <Sidebar isSidebar={isSidebar} />
                         <main className="content max-w-screen overflow-scroll scrollHidden">
@@ -78,6 +85,15 @@ function App() {
                                 />
                             </Routes>
                         </main>
+                    </div>
+                ) : (
+                    <div>
+                        <Routes>
+                            <Route
+                                path="/"
+                                element={<OnlyTeacherProfile state={user} />}
+                            />
+                        </Routes>
                     </div>
                 )}
             </ThemeProvider>

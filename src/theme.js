@@ -201,15 +201,15 @@ export const ColorModeContext = createContext({
 export const useMode = () => {
   const [mode, setMode] = useState("dark");
 
-  useEffect(() => {
-    const currentHour = new Date().getHours();
+  // useEffect(() => {
+  //   const currentHour = new Date().getHours();
 
-    if (currentHour >= 18 || currentHour < 6) {
-      setMode("dark"); // Set to dark mode between 6pm and 6am
-    } else {
-      setMode("light"); // Set to light mode during the day
-    }
-  }, []);
+  //   if (currentHour >= 18 || currentHour < 6) {
+  //     setMode("dark"); // Set to dark mode between 6pm and 6am
+  //   } else {
+  //     setMode("light"); // Set to light mode during the day
+  //   }
+  // }, []);
 
   const colorMode = useMemo(
     () => ({ 
