@@ -45,7 +45,7 @@ const Login = () => {
                 <div className="flex justify-center items-center">
                     <Header
                         title="Login"
-                        subtitle="Welcome to Terminal"
+                        subtitle="Welcome to EduCrafter"
                         className={"flex flex-col justify-center items-center"}
                     />
                     <Divider />

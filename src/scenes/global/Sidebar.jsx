@@ -99,7 +99,7 @@ const Sidebar = () => {
                                     variant="h3"
                                     color={colors.grey[100]}
                                 >
-                                    TUTORNET
+                                    EduCrafter
                                 </Typography>
                                 <IconButton
                                     onClick={() => setIsCollapsed(!isCollapsed)}
