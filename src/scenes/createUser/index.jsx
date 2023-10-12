@@ -138,9 +138,10 @@ const CreateUser = () => {
                 group: values.groupNo,
                 lecture: values.lectureNo,
                 id: pathState ? state?.id : new Date().getTime().toString(),
-                review:[],
+                review: pathState ? state?.review : [],
                 address:values.address,
             }
+            console.log(obj);
             const password = values.email.split("@")[0] + values.dob;
             const obj2 = {
                 email: values.email,
@@ -149,7 +150,6 @@ const CreateUser = () => {
                 role:"user",
                 password:password
             }
-            alert("User Added Successfully \nEmail: " + values.email + "\nPassword: "+password)
             const groupArr = values.groupNo.split(",").map((item)=>item.trim());
             const lectureArr = values.lectureNo.split(",").map((item)=>item.trim());
             const subjectArr = values.subject.split(",").map((item)=>item.trim());
@@ -167,6 +167,7 @@ const CreateUser = () => {
             else{
                 data.push(obj);
                 users.push(obj2);
+                alert("User Added Successfully \nEmail: " + values.email + "\nPassword: "+password)
             }
             localStorage.setItem("team",JSON.stringify(data));
             localStorage.setItem("users",JSON.stringify(users));

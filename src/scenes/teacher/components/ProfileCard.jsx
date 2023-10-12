@@ -106,6 +106,36 @@ const yearData = [
         name:"Jun",
         pv: 3.1,
         amt: 2500,
+    },
+    {
+        name:"July",
+        pv: 4.48,
+        amt: 2400,
+    },
+    {
+        name:"Aug",
+        pv: 3.26,
+        amt: 2210,
+    },
+    {
+        name:"Sep",
+        pv: 2.234,
+        amt: 2290,
+    },
+    {
+        name:"Oct",
+        pv: 3.7,
+        amt: 2000,
+    },
+    {
+        name:"Nov",
+        pv: 3.93,
+        amt: 2181,
+    },
+    {
+        name:"Dec",
+        pv: 4.87,
+        amt: 2500,
     }
 ]
 
