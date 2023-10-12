@@ -35,7 +35,6 @@ function App() {
 
     role = token?.role;
     const u = team.filter((t) => t.email === token?.email)[0] || null;
-    console.log(u,role);
     user = u;
    
 
@@ -45,6 +44,7 @@ function App() {
                 <CssBaseline />
                 {!token ? (
                     <Routes>
+                        <Route path="/" element={<Navigate to="/login" />} />
                         <Route path="/login" element={<Login />} />
                     </Routes>
                 ) : role === "admin" ? (
