@@ -38,6 +38,7 @@ const Sidebar = () => {
     const [selected, setSelected] = useState("Dashboard");
     const { pathname } = useLocation();
     const navigate = useNavigate();
+    const token = JSON.parse(localStorage.getItem("token"));
     useEffect(() => {
         switch (pathname) {
             case "/dashboard":
@@ -136,7 +137,7 @@ const Sidebar = () => {
                                     fontWeight="bold"
                                     sx={{ m: "12px 0 0 0" }}
                                 >
-                                    Mark
+                                    {token?.name}
                                 </Typography>
                                 <Typography
                                     variant="h5"
