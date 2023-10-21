@@ -36,13 +36,14 @@ const Team = () => {
         setDelEmail(e.email);
     };
     const columns = [
-        { field: "id", headerName: "ID", width: 60 },
+        { field: "id", headerName: "ID", width: 60,minWidth:120 },
         {
             field: "name",
             headerName: "Name",
             flex: 1,
             cellClassName: "name-column--cell",
             width: 60,
+            minWidth:120
         },
         {
             field: "age",
@@ -51,23 +52,26 @@ const Team = () => {
             headerAlign: "left",
             align: "left",
             width: 60,
+            minWidth:120
         },
         {
             field: "phone",
             headerName: "Phone Number",
             flex: 1,
             width: 60,
+            minWidth:120
         },
         {
             field: "email",
             headerName: "Email",
             flex: 1,
             width: 60,
-            hide: windowWidth <= 768,
+            minWidth:120
         },
         {
             flex: 1,
             width: 60,
+            minWidth:120,
             renderCell: (val) => {
                 return (
                     <Box
