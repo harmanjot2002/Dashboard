@@ -7,6 +7,7 @@ import Header from "../../components/Header";
 import { useState } from "react";
 import DeleteModal from "../../components/DeleteModal";
 import { useNavigate } from "react-router-dom";
+import { useEffect} from "react";
 
 const Team = () => {
     const navigate = useNavigate();
@@ -14,7 +15,20 @@ const Team = () => {
     const colors = tokens(theme.palette.mode);
     const [isDelOpen, setIsDelOpen] = useState(false);
     const [delId, setDelId] = useState(null);
-    const [delEmail,setDelEmail] = useState(null);
+    const [delEmail, setDelEmail] = useState(null);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    const handleResize = () => {
+        setWindowWidth(window.innerWidth);
+    };
+
+    useEffect(() => {
+        window.addEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
     const handleClose = () => setIsDelOpen(false);
     const handleOpen = (e) => {
         setIsDelOpen(true);
@@ -22,12 +36,13 @@ const Team = () => {
         setDelEmail(e.email);
     };
     const columns = [
-        { field: "id", headerName: "ID" },
+        { field: "id", headerName: "ID", width: 60 },
         {
             field: "name",
             headerName: "Name",
             flex: 1,
             cellClassName: "name-column--cell",
+            width: 60,
         },
         {
             field: "age",
@@ -35,19 +50,24 @@ const Team = () => {
             type: "number",
             headerAlign: "left",
             align: "left",
+            width: 60,
         },
         {
             field: "phone",
             headerName: "Phone Number",
             flex: 1,
+            width: 60,
         },
         {
             field: "email",
             headerName: "Email",
             flex: 1,
+            width: 60,
+            hide: windowWidth <= 768,
         },
         {
             flex: 1,
+            width: 60,
             renderCell: (val) => {
                 return (
                     <Box
@@ -59,7 +79,9 @@ const Team = () => {
                         borderRadius="4px"
                     >
                         <IconButton
-                            onClick={()=>{navigate("/update/teacher/"+val.id,{state:val.row})}}
+                            onClick={() => {
+                                navigate("/update/teacher/" + val.id, { state: val.row });
+                            }}
                         >
                             <ModeIcon />
                         </IconButton>
@@ -74,7 +96,7 @@ const Team = () => {
 
     const mockData = JSON.parse(localStorage.getItem("team"));
     return (
-        <Box m="20px">
+        <Box m="20px" width="80%" margin="auto">
             <Header title="TEAM" subtitle="Managing the Team Members" />
             <Box
                 m="40px 0 0 0"
@@ -111,9 +133,9 @@ const Team = () => {
                         pagination: { paginationModel: { pageSize: 10 } },
                     }}
                     pageSizeOptions={[5, 10, 25]}
-                    onCellClick={(e)=>{
-                        if(e.field === "name"){
-                            navigate("/update/teacher/"+e.id,{state:e.row})
+                    onCellClick={(e) => {
+                        if (e.field === "name") {
+                            navigate("/update/teacher/" + e.id, { state: e.row });
                         }
                     }}
                 />
