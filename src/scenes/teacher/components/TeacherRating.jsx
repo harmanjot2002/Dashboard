@@ -44,62 +44,58 @@ const TeacherRating = ({ teacher }) => {
             { token?.role === 'admin' &&  <Header title="Rating" />}
             <div className="flex flex-col gap-5 justify-center flex-wrap">
                 { token?.role === 'admin' && <div className="h-90 p-5 flex justify-between items-center w-full bg-slate-400 rounded-lg hover-effect">
-                    <Grid container spacing={2} className="w-full h-full">
-                        <Grid item xs={6} className="p-4 pl-8">
-                            <div>
-                                <Typography
-                                    variant="h2"
-                                    sx={{ marginBottom: "8px" }}
-                                >
-                                    Enter your review
-                                </Typography>
-                                <TextField
-                                    label="Write your review here"
-                                    multiline
-                                    rows={7}
-                                    fullWidth
-                                    variant="outlined"
-                                    className="w-full mt-1"
-                                    value={review}
-                                    onChange={handleReviewChange}
-                                />
-                            </div>
-                        </Grid>
-                        <Grid item xs={6} className="p-4">
-                            <div className="flex flex-col h-full justify-between">
-                                <div className="mb-4">
-                                    <Typography
-                                        variant="h2"
-                                        sx={{ marginBottom: "8px" }}
-                                    >
-                                        Rating
-                                    </Typography>
-                                    <Rating
-                                        name="rating"
-                                        value={rating}
-                                        precision={1}
-                                        onChange={handleRatingChange}
-                                        sx={{
-                                            fontSize: "2.5rem",
-                                        }}
-                                    />
-                                </div>
-                                <div>
-                                    <Button
-                                        variant="contained"
-                                        color="secondary"
-                                        sx={{
-                                            marginLeft: "18px",
-                                            marginBottom: "18px",
-                                        }}
-                                        onClick={handleSubmit}
-                                    >
-                                        Submit
-                                    </Button>
-                                </div>
-                            </div>
-                        </Grid>
-                    </Grid>
+                <Grid container spacing={10} className="w-full h-full">
+  <Grid item xs={1}></Grid>
+  <Grid item xs={12} md={6} className="p-4 pl-8 m-5">
+    <div>
+      <Typography variant="h3" sx={{ marginBottom: "8px" }}>
+        Enter your review
+      </Typography>
+      <TextField
+        label="Write your review here"
+        multiline
+        rows={7}
+        fullWidth
+        variant="outlined"
+        className="w-full mt-1"
+        value={review}
+        onChange={handleReviewChange}
+      />
+    </div>
+  </Grid>
+  <Grid item xs={12} md={5} className="p-4 m-5">
+    <div className="flex flex-col h-full justify-between">
+      <div className="mb-4">
+        <Typography variant="h3" sx={{ marginBottom: "8px" }}>
+          Rating
+        </Typography>
+        <Rating
+          name="rating"
+          value={rating}
+          precision={1}
+          onChange={handleRatingChange}
+          sx={{
+            fontSize: "2.5rem",
+          }}
+        />
+      </div>
+      <div>
+        <Button
+          variant="contained"
+          color="secondary"
+          sx={{
+            marginLeft: "18px",
+            marginBottom: "18px",
+          }}
+          onClick={handleSubmit}
+        >
+          Submit
+        </Button>
+      </div>
+    </div>
+  </Grid>
+</Grid>
+
                 </div>}
                 <div>
                     <Typography variant="h2" sx={{ marginBottom: "8px" }}>
