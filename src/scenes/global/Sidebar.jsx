@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import { Avatar, Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
@@ -9,6 +9,7 @@ import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { deepPurple } from "@mui/material/colors";
 
 const Item = ({ title, to, icon, selected, setSelected, handleClick }) => {
     const theme = useTheme();
@@ -83,11 +84,12 @@ const Sidebar = () => {
                     {/* LOGO AND MENU ICON */}
                     <MenuItem
                         onClick={() => setIsCollapsed(!isCollapsed)}
-                        icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
+                        icon={isCollapsed ? <MenuOutlinedIcon className="hidden"  /> : undefined}
                         style={{
                             margin: "10px 0 20px 0",
                             color: colors.grey[100],
                         }}
+                        className="hidden md:block"
                     >
                         {!isCollapsed && (
                             <Box
@@ -105,7 +107,7 @@ const Sidebar = () => {
                                 <IconButton
                                     onClick={() => setIsCollapsed(!isCollapsed)}
                                 >
-                                    <MenuOutlinedIcon />
+                                    <MenuOutlinedIcon className="hidden" />
                                 </IconButton>
                             </Box>
                         )}
@@ -119,16 +121,31 @@ const Sidebar = () => {
                                 justifyContent="center"
                                 alignItems="center"
                             >
-                                <img
+                                {/* <img
                                     alt="profile-user"
-                                    width="100px"
-                                    height="100px"
-                                    src={`../../assets/user.png`}
-                                    style={{
-                                        cursor: "pointer",
-                                        borderRadius: "50%",
-                                    }}
-                                />
+                                    src={token?.image}
+                                    className="h-20 w-20 rounded-full"
+                                /> */}
+                                {token?.image === "" ? (
+                                    <Avatar
+                                        sx={{
+                                            bgcolor: deepPurple[500],
+                                            height: 80,
+                                            width: 80,
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                        }}
+                                    >
+                                        {token?.name.slice(0, 1)}
+                                    </Avatar>
+                                ) : (
+                                    <img
+                                        className="h-20 w-20 rounded-full"
+                                        src={token?.image}
+                                        alt="profile"
+                                    />
+                                )}
                             </Box>
                             <Box textAlign="center">
                                 <Typography
@@ -180,9 +197,9 @@ const Sidebar = () => {
                             icon={<LogoutIcon />}
                             selected={selected}
                             setSelected={setSelected}
-                            handleClick={()=>{
-                              localStorage.removeItem("token");
-                              navigate("/login");
+                            handleClick={() => {
+                                localStorage.removeItem("token");
+                                navigate("/login");
                             }}
                         />
                     </Box>

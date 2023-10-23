@@ -87,7 +87,7 @@ const Dashboard = () => {
                     subtitle="Welcome to your dashboard"
                 />
                 <Button type="submit" color="secondary" variant="contained">
-                    <Link to={"/createuser"}>Add New Teacher</Link>
+                    <Link to={"/createuser"}>Add New</Link>
                 </Button>
             </Box>
             <Box display="flex" flexDirection={"column"}>
