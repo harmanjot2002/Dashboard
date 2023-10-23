@@ -136,7 +136,7 @@ const CreateUser = () => {
         review: pathState ? state?.review : [],
         address: values.address,
       };
-      console.log(obj);
+      // console.log(obj);
       const password = values.email.split("@")[0] + values.dob;
       const obj2 = {
         email: values.email,
@@ -158,6 +158,12 @@ const CreateUser = () => {
       createLectures(groupArr, lectureArr, subjectArr, obj);
       const data = JSON.parse(localStorage.getItem("team"));
       const users = JSON.parse(localStorage.getItem("users"));
+
+      const filterTeacher = data.filter((teacher)=>teacher.email === values.email);
+      if(filterTeacher?.length === 1){
+        alert("Teacher already found with this id!");
+        return;
+      }
       if (pathState) {
         const index = data.findIndex((item) => item.id === state.id);
         data[index] = obj;
