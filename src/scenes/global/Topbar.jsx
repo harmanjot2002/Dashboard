@@ -1,5 +1,5 @@
 import { Box, IconButton, useTheme } from "@mui/material";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ColorModeContext, tokens } from "../../theme";
 import { Input } from "@mui/material";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
@@ -19,6 +19,16 @@ const Topbar = () => {
     const handleClose = () => setOpen(false);
     const handleOpen = () => setOpen(true);
 
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    useEffect(() => {
+        const fetchUser = () => {
+            const loginUser = JSON.parse(localStorage.getItem("token"));
+            setName(loginUser?.name);
+            setEmail(loginUser?.email);
+        };
+        fetchUser();
+    }, []);
 
     return (
         <Box display="flex" justifyContent="space-between" p={2}>
@@ -48,7 +58,7 @@ const Topbar = () => {
                     <PersonOutlinedIcon />
                 </IconButton>
             </Box>
-            <ProfileUpdateModal open={open} handleClose={handleClose} />
+            <ProfileUpdateModal nameV={name} emailV={email} open={open} handleClose={handleClose} />
         </Box>
     );
 };

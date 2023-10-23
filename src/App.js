@@ -5,6 +5,7 @@ import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
 import Team from "./scenes/team";
 import Form from "./scenes/form";
+import CloudPage from "./scenes/CloudPage";
 // import Contacts from "./scenes/contacts";
 
 import { mockDataTeam } from "./data/mockData";
@@ -70,6 +71,10 @@ function App() {
                                 <Route
                                     path="/lectures"
                                     element={<Lectures />}
+                                />
+                                <Route
+                                    path="/cloud"
+                                    element={<CloudPage />}
                                 />
                                 <Route
                                     path="/teacher/:id"

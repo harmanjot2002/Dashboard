@@ -1,8 +1,10 @@
-import { Avatar, Box, Modal,Button, TextField, useTheme} from "@mui/material";
+import { Avatar, Box, Modal, Button, TextField, useTheme } from "@mui/material";
 import { ColorModeContext, tokens } from "../theme";
 import { deepPurple } from "@mui/material/colors";
 import { useFormik } from "formik";
-import React,{useContext} from "react";
+import React, { useContext, useEffect, useState } from "react";
+import CloudinaryUploadWidget from "./CloudinaryUploadWidget";
+import CloudPage from "../scenes/CloudPage";
 const style = {
     position: "absolute",
     top: "50%",
@@ -16,19 +18,47 @@ const style = {
     p: 4,
 };
 
-const ProfileUpdateModal = ({ open, handleClose }) => {
+const ProfileUpdateModal = ({ nameV, emailV, open, handleClose }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    const colorMode = useContext(ColorModeContext);
+    const [img, setImg] = useState(null);
+    // const colorMode = useContext(ColorModeContext);
+    const [refresh, setRefresh] = useState(false);
+    console.log(nameV, emailV);
     const formik = useFormik({
         initialValues: {
-            email: "",
-            name: "",
+            email: emailV,
+            name: nameV,
         },
         onSubmit: (values) => {
-            // console.log(values);
+            if (values.email === "" || values.name === "") {
+                alert("Please fill all the fields");
+            }
+            const loginUser = JSON.parse(localStorage.getItem("token"));
+            const allUsers = JSON.parse(localStorage.getItem("users"));
+            const index = allUsers.findIndex(
+                (user) => user.email === loginUser.email
+            );
+            allUsers[index].name = values.name;
+            allUsers[index].email = values.email;
+            localStorage.setItem("users", JSON.stringify(allUsers));
+            localStorage.setItem("token", JSON.stringify(allUsers[index]));
+            alert("Profile Updated");
+            handleClose();
+            values.email = "";
+            values.name = "";
         },
     });
+    const handleRefresh = () => {
+        setRefresh(!refresh);
+    };
+    useEffect(() => {
+        const fetchUser = () => {
+            const loginUser = JSON.parse(localStorage.getItem("token"));
+            setImg(loginUser?.image);
+        };
+        fetchUser();
+    }, [refresh, formik.values]);
 
     return (
         <Modal
@@ -42,25 +72,45 @@ const ProfileUpdateModal = ({ open, handleClose }) => {
                 className={"flex flex-col gap-5 justify-center items-center"}
             >
                 <div className="relative">
-                    <Avatar
-                        sx={{ bgcolor: deepPurple[500], height: 80, width: 80 }}
-                    >
-                        OP
-                    </Avatar>
+                    {img === "" ? (
+                        <Avatar
+                            sx={{
+                                bgcolor: deepPurple[500],
+                                height: 80,
+                                width: 80,
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                            }}
+                        >
+                            {formik.values?.name.slice(0, 1)}
+                        </Avatar>
+                    ) : (
+                        <img
+                            className="h-20 w-20 rounded-full"
+                            src={img}
+                            alt="profile"
+                        />
+                    )}
                 </div>
-                <form action="" className="flex flex-col w-full gap-5">
-                    <center>
-                        <div className="bottom-0 right-0">
-                            <input type="file" about="Change Profile Picture"/>
-                        </div>
-                    </center>
+                <CloudPage
+                    localObject={"users"}
+                    handleRefresh={handleRefresh}
+                />
+                <form
+                    onSubmit={formik.handleSubmit}
+                    className="flex flex-col w-full gap-5"
+                >
                     <TextField
                         fullWidth
                         variant="filled"
                         type="text"
                         label="Email"
                         id="email"
-                        sx={{backgroundColor:colors.primary[400],borderRadius:"3px"}}
+                        sx={{
+                            backgroundColor: colors.primary[400],
+                            borderRadius: "3px",
+                        }}
                         onBlur={formik.handleBlur}
                         onChange={formik.handleChange}
                         value={formik.values.email}
@@ -74,7 +124,10 @@ const ProfileUpdateModal = ({ open, handleClose }) => {
                         type="text"
                         label="Name"
                         id="name"
-                        sx={{backgroundColor:colors.primary[400],borderRadius:"3px"}}
+                        sx={{
+                            backgroundColor: colors.primary[400],
+                            borderRadius: "3px",
+                        }}
                         onBlur={formik.handleBlur}
                         onChange={formik.handleChange}
                         value={formik.values.name}
@@ -83,8 +136,20 @@ const ProfileUpdateModal = ({ open, handleClose }) => {
                         helperText={formik.touched.name && formik.errors.name}
                     />
                     <Box className="flex gap-10" justifyContent="center">
-                        <Button type="submit" color="secondary" variant="contained">Save</Button>
-                        <Button onClick={handleClose} color="secondary" variant="contained">Cancel</Button>
+                        <Button
+                            type="submit"
+                            color="secondary"
+                            variant="contained"
+                        >
+                            Save
+                        </Button>
+                        <Button
+                            onClick={handleClose}
+                            color="secondary"
+                            variant="contained"
+                        >
+                            Cancel
+                        </Button>
                     </Box>
                 </form>
             </Box>

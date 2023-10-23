@@ -4,13 +4,15 @@ export const userData = [
         email:"goyalh9539@gmail.com",
         password:"12345",
         phone:"9785698756",
-        role:"admin"
+        role:"admin",
+        image:""
     },
     {
         name:"Harmanjot Kaur",
         email:"harmanjotkaur@gmail.com",
         password:"12345",
         phone:"999999999",
-        role:"admin"
+        role:"admin",
+        image:""
     }
 ]
