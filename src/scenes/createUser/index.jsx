@@ -160,14 +160,15 @@ const CreateUser = () => {
       const users = JSON.parse(localStorage.getItem("users"));
 
       const filterTeacher = data.filter((teacher)=>teacher.email === values.email);
-      if(filterTeacher?.length === 1){
-        alert("Teacher already found with this id!");
-        return;
-      }
+      
       if (pathState) {
         const index = data.findIndex((item) => item.id === state.id);
         data[index] = obj;
       } else {
+        if(filterTeacher?.length === 1){
+          alert("Teacher already found with this id!");
+          return;
+        }
         data.push(obj);
         users.push(obj2);
         alert(
